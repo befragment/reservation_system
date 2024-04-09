@@ -62,7 +62,8 @@ async def set_contract(contract: ContractBase, db: db_dependency):
 @router.get("/get_contracts/rented_dates")
 async def rented_days(db: db_dependency) -> tuple:
     """
-    Return the list of dates from `contract` table in which the house is rented
+    Return the list of dates from `contract` table in which the house is rented.\n
+    Note: this endpoint return all the dates from TODAY date
     """
     
     rented_dates = list()
@@ -76,17 +77,11 @@ async def rented_days(db: db_dependency) -> tuple:
         end_day: date = rented_intervals[1].replace(tzinfo=None).date()
         today: date = datetime.now(timezone.utc).replace(tzinfo=None).date()
 
-        print(start_day, end_day, today)
+        # print(start_day, end_day, today)
         if today > end_day:
             continue
         else:
             dates_between = await dWorker.get_dates_between(start_day, end_day)
-            print(end_day, start_day)
-            rented_dates.extend(dates_between)
+            rented_dates.extend(dates_between) if isinstance(dates_between, list) else rented_dates.append(dates_between)
 
-    res = tuple(
-        datetime.strptime(date_string, '%Y-%m-%d').date() 
-        for date_string in rented_dates
-    )
-    print(res)
-    return res
+    return rented_dates

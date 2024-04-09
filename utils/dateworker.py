@@ -5,19 +5,20 @@ import datetime
 class DateWorker:
 
     @staticmethod
-    async def get_dates_between(start_date, end_date) -> list[date]:
+    async def get_dates_between(start_date, end_date) -> list[date] | date:
         """
         Return the list of dates between start_date and end_date
         """
-        delta = end_date - start_date
-        # Generate a list of dates between start_date and end_date
-        dates_between = list()
-        for i in range(delta.days + 1):
-            date = start_date + timedelta(days=i)
-            dates_between.append(date.strftime("%Y-%m-%d"))
+        if end_date != start_date:
+            delta = end_date - start_date
+            # Generate a list of dates between start_date and end_date
+            dates_between = list()
+            for i in range(delta.days + 1):
+                date = start_date + timedelta(days=i)
+                dates_between.append(date.strftime("%Y-%m-%d"))
 
-        return dates_between
-    
+            return dates_between
+        return start_date
 
     @staticmethod
     async def set_random_mm_ss_msms(dt: datetime, hours: int):
