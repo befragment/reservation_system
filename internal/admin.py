@@ -75,14 +75,18 @@ async def rented_days(db: db_dependency) -> list:
         start_day: date = rented_intervals[0].date()
         end_day: date = rented_intervals[1].replace(tzinfo=None).date()
         today: date = datetime.now(timezone.utc).replace(tzinfo=None).date()
+
+        print(start_day, end_day, today)
         if today > end_day:
             continue
         else:
             dates_between = await dWorker.get_dates_between(start_day, end_day)
+            print("aaaaaa", dates_between)
             rented_dates.extend(dates_between)
 
-
-    return tuple(
+    res = tuple(
         datetime.strptime(date_string, '%Y-%m-%d').date() 
         for date_string in rented_dates
     )
+    print(res)
+    return res

@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, status
 from sqlalchemy import select
 
-import models
-from validation import RentRequestBase
+from database import models
+from database.validation import RentRequestBase
 from database import db_dependency
 from internal.admin import rented_days
 
