@@ -4,8 +4,8 @@ from fastapi import APIRouter, HTTPException, status
 from sqlalchemy import select, delete
 
 from utils.dateworker import DateWorker
-from validation import ContractBase
-import models
+from database.validation import ContractBase
+from database import models
 from database import db_dependency
 
 
