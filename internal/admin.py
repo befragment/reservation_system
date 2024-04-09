@@ -1,7 +1,7 @@
 from datetime import date, datetime, timezone
 
 from fastapi import APIRouter, HTTPException, status
-from sqlalchemy import select
+from sqlalchemy import select, delete
 
 from utils.dateworker import DateWorker
 from validation import ContractBase
@@ -22,9 +22,11 @@ async def delete_contract(contract_id_to_delete: int, db: db_dependency):
     """
     Delete contract by its id
     """
-    db.query(models.Contract).filter(
-        models.Contract.contract_id == contract_id_to_delete
-    ).delete()
+    await db.execute(
+        delete(models.Contract).where(
+            models.Contract.contract_id == contract_id_to_delete
+        )
+    )
     await db.commit()
 
 
