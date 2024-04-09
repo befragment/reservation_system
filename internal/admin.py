@@ -81,6 +81,7 @@ async def rented_days(db: db_dependency) -> tuple:
             continue
         else:
             dates_between = await dWorker.get_dates_between(start_day, end_day)
+            print(end_day, start_day)
             rented_dates.extend(dates_between)
 
     res = tuple(
