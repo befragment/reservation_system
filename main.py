@@ -14,7 +14,7 @@ app.include_router(admin.router)
 
 @app.get("/")
 async def root():
-    return { "hello": "root" }
+    return { "hello": "rootie" }
 
 
 
