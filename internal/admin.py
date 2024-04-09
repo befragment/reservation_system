@@ -37,7 +37,6 @@ async def get_contracts(db: db_dependency):
     return cons.scalars().all()
 
 
-
 @router.post("/set_contract", status_code=status.HTTP_201_CREATED)
 async def set_contract(contract: ContractBase, db: db_dependency):
     """
