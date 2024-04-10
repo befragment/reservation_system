@@ -48,6 +48,8 @@ async def set_contract(contract: ContractBase, db: db_dependency):
     all_rents: list[date] = await rented_days(db)
     contract_day_start_rented: bool = contract.datetime_start.date() in all_rents
     contract_day_end_rented:   bool = contract.datetime_end.date() in all_rents
+    if not contract.request_id:  # i want request_id to be send to db as `null` by default, but no idea how to do it 
+        contract.request_id = None
 
     if contract_day_start_rented or contract_day_end_rented:
         raise HTTPException(

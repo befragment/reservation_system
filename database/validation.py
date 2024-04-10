@@ -18,4 +18,4 @@ class ContractBase(BaseModel):
     datetime_start: datetime
     datetime_end: datetime
     is_paid: bool = False
-    request_id: int | None  # by default it goes to database with `null` value
+    request_id: Optional[int | None] = None # by default it goes to database with `null` value

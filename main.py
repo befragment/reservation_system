@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import uvicorn
 
 from internal import admin
 from routers import rent
@@ -15,7 +16,5 @@ app.include_router(admin.router)
 @app.get("/")
 async def root():
     return { "hello": "rootie" }
-
-
 
 
